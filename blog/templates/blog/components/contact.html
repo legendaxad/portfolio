@@ -1,0 +1,42 @@
+    <div id="contact" class="form-1 bg-gray">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Contact details</h2>
+                    <p class="p-heading">For any type of online project please don't hesitate to get in touch with me. The fastest way is to send me your message using the following email <a class="blue no-line" href="#your-link">abdulaxadjon9@gmail.com</a></p>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <!-- Contact Form -->
+                    <form method="POST">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <input type="text" name="name" class="form-control-input" required>
+        <label class="label-control">Name</label>
+    </div>
+
+    <div class="form-group">
+        <input type="email" name="email" class="form-control-input" required>
+        <label class="label-control">Email</label>
+    </div>
+
+    <div class="form-group">
+        <textarea name="message" class="form-control-textarea" required></textarea>
+        <label class="label-control">Project details</label>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="form-control-submit-button">
+            Send Message
+        </button>
+    </div>
+</form>
+                    <!-- end of contact form -->
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of form-1 -->
