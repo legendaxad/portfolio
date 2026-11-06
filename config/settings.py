@@ -7,7 +7,7 @@ SECRET_KEY = 'django-insecure-z08j83yafxh30o$!e1^7ss8a)r%%&k4y^z7pi-o%wdte!u)&vk
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver', '*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -81,11 +81,23 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
-
-STATIC_ROOT = BASE_DIR / 'static'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [
+    BASE_DIR / 'blog' / 'static',
+]
 
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from django.contrib.messages import constants as message_constants
+
+MESSAGE_TAGS = {
+    message_constants.DEBUG: 'debug',
+    message_constants.INFO: 'info',
+    message_constants.SUCCESS: 'success',
+    message_constants.WARNING: 'warning',
+    message_constants.ERROR: 'danger',
+}

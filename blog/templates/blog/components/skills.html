@@ -1,32 +1,38 @@
 {% load static %}
-
-<div id="carouselExample" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner text-center">
-    {% for cert in certificates %}
-        <div class="carousel-item {% if forloop.first %}active{% endif %}">
-
-            <img src="{{ cert.image.url }}" class="certificate-img" alt="{{ cert.title }}">
-
-            <div class="certificate-info mt-4">
-                <h5>{{ cert.title }}</h5>
-                <p class="text-muted">{{ cert.issuer }} • {{ cert.year }}</p>
-                <p>{{ cert.description }}</p>
-
-                {% if cert.verify_link %}
-                    <a href="{{ cert.verify_link }}" target="_blank" class="btn btn-sm btn-primary">
-                        Verify Certificate
-                    </a>
-                {% endif %}
-            </div>
-
+<section id="skills" class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">02. Technical Capabilities</span>
+            <h2 class="section-title">Technical Skills Matrix</h2>
+            <p class="section-desc">
+                Organized cleanly by engineering discipline. Highlighted badges indicate primary architectural specialization.
+            </p>
         </div>
-    {% endfor %}
-</div>
 
- <a class="carousel-control-prev custom-control" href="#carouselExample" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-</a>
- <a class="carousel-control-next custom-control" href="#carouselExample" role="button" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-</a>
-</div>
+        <div class="skills-categories-grid">
+            {% for cat in skill_categories %}
+            <div class="skill-category-card">
+                <div class="category-header">
+                    <h3 class="category-name">{{ cat.name }}</h3>
+                    <span class="category-count">{{ cat.skills.count }} tools</span>
+                </div>
+
+                <div class="skills-list">
+                    {% for skill in cat.skills.all %}
+                        <span class="skill-badge {% if skill.is_core %}core{% endif %}">
+                            {% if skill.is_core %}
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" color="var(--accent-cyan)">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                            {% endif %}
+                            {{ skill.name }}
+                        </span>
+                    {% empty %}
+                        <span class="text-muted" style="font-size: 0.85rem;">Skills configured dynamically in admin</span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

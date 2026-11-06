@@ -1,0 +1,66 @@
+{% load static %}
+<section id="certificates" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-badge">05. Credentials</span>
+      <h2 class="section-title">Verified Certifications</h2>
+      <p class="section-desc">
+        Verified software development programs and engineering coursework.
+      </p>
+    </div>
+
+    <div class="certificates-grid">
+      {% for cert in certificates %}
+      <div class="certificate-card">
+        {% if cert.image %}
+        <div class="certificate-media">
+          <img
+            src="{{ cert.image.url }}"
+            alt="{{ cert.title }}"
+            loading="lazy"
+          />
+        </div>
+        {% endif %}
+
+        <div class="certificate-body">
+          <div class="cert-meta">
+            <span class="cert-issuer">{{ cert.given_by }}</span>
+            <span class="cert-year">{{ cert.year }}</span>
+          </div>
+
+          <h3 class="cert-title">{{ cert.title }}</h3>
+          <p class="cert-desc">{{ cert.description }}</p>
+
+          {% if cert.credential_url %}
+          <a
+            href="{{ cert.credential_url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-secondary-ghost btn-sm"
+            style="margin-top: auto; align-self: flex-start"
+          >
+            Verify Credential
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+              ></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-muted">Certificates will appear here once published.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>

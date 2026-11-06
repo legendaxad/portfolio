@@ -1,42 +1,131 @@
-    <div id="contact" class="form-1 bg-gray">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Contact details</h2>
-                    <p class="p-heading">For any type of online project please don't hesitate to get in touch with me. The fastest way is to send me your message using the following email <a class="blue no-line" href="#your-link">abdulaxadjon9@gmail.com</a></p>
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-            <div class="row">
-                <div class="col-lg-12">
+{% load static %}
+<section id="contact" class="section">
+    <div class="container">
+        <div class="section-header">
+            <span class="section-badge">07. Direct Contact</span>
+            <h2 class="section-title">Get in Touch</h2>
+            <p class="section-desc">
+                Have a backend engineering opening, project inquiry, or technical collaboration? Send a direct message below.
+            </p>
+        </div>
 
-                    <!-- Contact Form -->
-                    <form method="POST">
-    {% csrf_token %}
+        <div class="contact-grid">
+            <div class="contact-info-card">
+                <h3 style="font-size: 1.375rem; margin-bottom: 0.75rem;">Direct Channels</h3>
+                <p style="font-size: 0.9375rem; color: var(--text-secondary);">
+                    I respond promptly to inquiries regarding software development, backend systems, and technical roles.
+                </p>
 
-    <div class="form-group">
-        <input type="text" name="name" class="form-control-input" required>
-        <label class="label-control">Name</label>
+                <div class="channel-list">
+                    {% if profile.email %}
+                    <a href="mailto:{{ profile.email }}" class="channel-item">
+                        <div class="channel-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="channel-label">Email Address</div>
+                            <div class="channel-value">{{ profile.email }}</div>
+                        </div>
+                    </a>
+                    {% endif %}
+
+                    {% if profile.telegram_url %}
+                    <a href="{{ profile.telegram_url }}" target="_blank" rel="noopener noreferrer" class="channel-item">
+                        <div class="channel-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.535-.194 1.006.128.832.942z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="channel-label">Telegram</div>
+                            <div class="channel-value">@akhadjon</div>
+                        </div>
+                    </a>
+                    {% endif %}
+
+                    {% if profile.github_url %}
+                    <a href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer" class="channel-item">
+                        <div class="channel-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="channel-label">GitHub</div>
+                            <div class="channel-value">akhadjon</div>
+                        </div>
+                    </a>
+                    {% endif %}
+
+                    <div class="channel-item">
+                        <div class="channel-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="channel-label">Location & University</div>
+                            <div class="channel-value">{{ profile.location }} • Dongshin Univ</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-card">
+                <h3 style="font-size: 1.375rem; margin-bottom: 0.5rem;">Send a Message</h3>
+                <p style="font-size: 0.9375rem; color: var(--text-secondary); margin-bottom: 1.75rem;">
+                    Messages are routed directly to the backend database and reviewed promptly.
+                </p>
+
+                <form method="POST" action="{% url 'home' %}#contact">
+                    {% csrf_token %}
+                    {{ form.honeypot }}
+
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.name.id_for_label }}">Full Name *</label>
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="text-danger" style="font-size: 0.8125rem; margin-top: 0.25rem;">{{ form.name.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.email.id_for_label }}">Email Address *</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}
+                            <div class="text-danger" style="font-size: 0.8125rem; margin-top: 0.25rem;">{{ form.email.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.subject.id_for_label }}">Subject</label>
+                        {{ form.subject }}
+                        {% if form.subject.errors %}
+                            <div class="text-danger" style="font-size: 0.8125rem; margin-top: 0.25rem;">{{ form.subject.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="{{ form.message.id_for_label }}">Message *</label>
+                        {{ form.message }}
+                        {% if form.message.errors %}
+                            <div class="text-danger" style="font-size: 0.8125rem; margin-top: 0.25rem;">{{ form.message.errors.0 }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary-accent" style="width: 100%;">
+                        Send Inbound Message
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <input type="email" name="email" class="form-control-input" required>
-        <label class="label-control">Email</label>
-    </div>
-
-    <div class="form-group">
-        <textarea name="message" class="form-control-textarea" required></textarea>
-        <label class="label-control">Project details</label>
-    </div>
-
-    <div class="form-group">
-        <button type="submit" class="form-control-submit-button">
-            Send Message
-        </button>
-    </div>
-</form>
-                    <!-- end of contact form -->
-
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of form-1 -->
+</section>

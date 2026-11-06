@@ -1,42 +1,32 @@
-<div class="accordion-1">
+{% load static %}
+<section id="faq" class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-left">
-                <h2 class="h2-heading">Frequently Asked Questions</h2>
-            </div>
+        <div class="section-header text-center" style="max-width: 680px; margin-left: auto; margin-right: auto; text-align: center;">
+            <span class="section-badge">06. Engineering Q&A</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-desc" style="margin-left: auto; margin-right: auto;">
+                Direct answers regarding my technical stack, architecture capabilities, and development approach.
+            </p>
         </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-
-                <div class="accordion" id="accordionExample">
-                    {% for question in questions%}
-                    <!-- Question 1 -->
-                     <div class="card">
-                        <div class="card-header" id="headingTwo">
-                            <button class="btn btn-link btn-block text-left collapsed" type="button"
-                                    data-toggle="collapse" data-target="#collapseTwo"
-                                    aria-expanded="false" aria-controls="collapseTwo">
-                                {{question.quest}}
-                            </button>
-                        </div>
-
-                        <div id="collapseTwo" class="collapse"
-                             aria-labelledby="headingTwo" data-parent="#accordionExample">
-                            <div class="card-body">
-                               {{question.answer}}
-                            </div>
-                        </div>
+        <div class="faq-container">
+            {% for q in questions %}
+            <div class="faq-item" id="faq-item-{{ q.id }}">
+                <button class="faq-trigger" aria-expanded="false" aria-controls="faq-answer-{{ q.id }}">
+                    <span>{{ q.quest }}</span>
+                    <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                </button>
+                <div class="faq-body" id="faq-answer-{{ q.id }}">
+                    <div class="faq-content">
+                        {{ q.answer|linebreaksbr }}
                     </div>
-
-
-                    {%endfor%}
-
-
-
                 </div>
-
             </div>
+            {% empty %}
+                <p class="text-muted text-center">Frequently asked questions will appear here.</p>
+            {% endfor %}
         </div>
     </div>
-</div>
+</section>

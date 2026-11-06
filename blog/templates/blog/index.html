@@ -1,89 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block main %}
+    <!-- Hero / Terminal Introduction -->
+    {% include 'blog/components/header.html' %}
 
- <!-- Header -->
-{% include 'blog/components/header.html'%}
-    <!-- end of header -->
+    <!-- About / Background & Philosophy -->
+    {% include 'blog/components/about.html' %}
 
+    <!-- Technical Skills Matrix -->
+    {% include 'blog/components/skills.html' %}
 
-    <!-- About-->
-{% include 'blog/components/about.html'%}
+    <!-- Featured Projects & Case Studies -->
+    {% include 'blog/components/projects.html' %}
 
-    <!-- end of about -->
-{% include 'blog/components/skills.html'%}
+    <!-- Development Journey & Academic Milestones -->
+    {% include 'blog/components/journey.html' %}
 
-    <!-- Services -->
-{% include 'blog/components/services.html'%}
+    <!-- Verified Certifications -->
+    {% include 'blog/components/certificates.html' %}
 
-    <!-- end of services -->
+    <!-- Frequently Asked Questions -->
+    {% include 'blog/components/questions.html' %}
 
-
-    <!-- Details -->
-{% include 'blog/components/details.html'%}
-
-    <!-- end of details -->
-
-
-    <!-- Projects -->
-
-
-<div id="projects" class="basic-3">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="h2-heading">Selected Projects</h2>
-                <p class="p-heading">
-                    Full-stack web applications and automation systems built with
-                    TypeScript, Node.js, and Python.
-                </p>
-
-            </div>
-        </div>
-
-    <div class="projects-grid">
-        {% for project in projects %}
-            <div class="project-card">
-                <h4>{{ project.title }}</h4>
-                <p>{{ project.description }}</p>
-                <span class="tech">{{ project.tech_stack }}</span>
-
-                {% if project.project_link %}
-                    <a href="{{ project.project_link }}" class="project-link" target="_blank">
-                        View Project →
-                    </a>
-                {% else %}
-                 <a class="nav-link page-scroll" href="#contact">                    <span class="project-link">Demo Available Upon Request</span>
-</a>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
-    </div>
-</div>
-
-    <!-- end of projects -->
-
-
-
-
-
-
-
-    <!-- Section Divider -->
-{% include 'blog/components/section.html'%}
-
-    <!-- end of section divider -->
-
-
-    <!-- Questions -->
-{% include 'blog/components/questions.html'%}
-
-    <!-- end of questions -->
-
-
-    <!-- Contact -->
-{% include 'blog/components/contact.html'%}
-
-    <!-- end of contact -->
-{% endblock main %}
+    <!-- Direct Contact & Validated Inquiry Form -->
+    {% include 'blog/components/contact.html' %}
+{% endblock %}

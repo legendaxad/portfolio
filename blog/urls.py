@@ -1,7 +1,7 @@
 from django.urls import path
+from blog.views import index, project_detail
 
-from blog.views import index
-
-urlpatterns=[
+urlpatterns = [
     path("", index, name="home"),
+    path("project/<int:pk>/", project_detail, name="project_detail"),
 ]

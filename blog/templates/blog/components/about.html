@@ -1,64 +1,75 @@
-<div id="about" class="basic-1 bg-gray">
+{% load static %}
+<section id="about" class="section">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="text-container first">
-                    <h2>Hi, I'm Ahadjon,</h2>
-                    <p>
-                        I am a 22-year-old Information Security student in South Korea (3rd year)
-                        and a Python-focused Full-Stack Developer.
-                        I specialize in building secure, scalable backend systems and
-                        modern web applications. My passion lies in backend architecture,
-                        API development, database design, and creating production-ready systems.
-                        I aim to combine security knowledge with real-world software engineering.
+        <div class="section-header">
+            <span class="section-badge">01. Engineering Profile</span>
+            <h2 class="section-title">Background & Development Philosophy</h2>
+            <p class="section-desc">
+                An authentic look into my academic journey, technical orientation, and engineering values.
+            </p>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-card">
+                <h3>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="var(--accent-cyan)">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Who I Am
+                </h3>
+                <p>
+                    {{ profile.bio_intro|linebreaksbr }}
+                </p>
+
+                <div class="education-box">
+                    <h5>{{ profile.education_institution }}</h5>
+                    <div class="education-meta">{{ profile.education_degree }} • {{ profile.education_period }}</div>
+                    <p class="mb-0 text-muted" style="font-size: 0.9rem;">
+                        {{ profile.education_details }}
                     </p>
                 </div>
             </div>
 
-            <div class="col-lg-4">
-                <div class="text-container second">
-                    <div class="time">2024 - Present</div>
-                    <h6>Python Backend & Full-Stack Developer</h6>
-                    <p>
-                        Developing REST APIs, authentication systems, Telegram bots,
-                        and full-stack platforms using Python (Django / FastAPI),
-                        TypeScript, Node.js, and MongoDB.
-                        Focused on scalability, security, and clean architecture.
-                    </p>
+            <div class="about-card">
+                <h3>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" color="var(--accent-cyan)">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                    How I Approach Software
+                </h3>
+                <p>
+                    {{ profile.bio_philosophy|linebreaksbr }}
+                </p>
 
-                    <div class="time">2023 - 2024</div>
-                    <h6>Frontend & System Development</h6>
-                    <p>
-                        Built responsive e-commerce platforms, booking systems,
-                        restaurant websites, and real-time messaging applications
-                        using React, TypeScript, and backend integrations.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-lg-4">
-                <div class="text-container third">
-                    <div class="time">Highlighted Projects</div>
-
-                    <h6>MultiShop (Python Backend)</h6>
-                    <p>
-                        Scalable e-commerce backend with structured API architecture,
-                        authentication, database modeling, and admin management.
-                    </p>
-
-                    <h6>Automation & Telegram Bots</h6>
-                    <p>
-                        Developed Translator and Prayer Time bots with API integrations,
-                        focusing on automation and real-time data handling.
-                    </p>
-
-                    <h6>Full-Stack Platforms</h6>
-                    <p>
-                        Camper booking system, electronics store, restaurant website,
-                        and messaging platform built with TypeScript & Node.js.
-                    </p>
+                <div class="mt-4">
+                    <h5 class="mb-2" style="font-size: 0.9375rem; color: var(--text-primary); font-family: var(--font-mono);">
+                        Core Engineering Principles:
+                    </h5>
+                    <ul class="highlights-list" style="font-size: 0.875rem;">
+                        <li>
+                            <svg class="bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span><strong>Understand from the database up:</strong> Schema design, foreign keys, constraints, and query efficiency before UI chrome.</span>
+                        </li>
+                        <li>
+                            <svg class="bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span><strong>Security-first perspective:</strong> Proper password hashing, role permissions, input validation, and secure session state.</span>
+                        </li>
+                        <li>
+                            <svg class="bullet-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span><strong>Pragmatic full-stack balance:</strong> Creating clean REST APIs that simplify and empower client-side TypeScript applications.</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
