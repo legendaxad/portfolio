@@ -1,4 +1,4 @@
-from django.test import TestCase, Client
+from django.test import TestCase, Client, override_settings
 from django.urls import reverse
 from django.contrib import admin
 from django.contrib.auth import get_user_model
@@ -7,6 +7,8 @@ from blog.models import (
     JourneyMilestone, Certificate, Question, Contact
 )
 from blog.forms import ContactForm
+
+TEST_CACHE = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
 
 
 class PortfolioModelTests(TestCase):
@@ -122,6 +124,7 @@ class ContactFormTests(TestCase):
         self.assertIn('message', form.errors)
 
 
+@override_settings(CACHES=TEST_CACHE)
 class PortfolioViewTests(TestCase):
     def setUp(self):
         self.client = Client()
@@ -173,13 +176,17 @@ class PortfolioViewTests(TestCase):
         self.assertContains(response, "Thank you! Your message has been received.")
 
     def test_project_detail_view(self):
-        response = self.client.get(reverse("project_detail", kwargs={"pk": self.project.pk}))
+        # Old pk-based links redirect permanently to the slug URL
+        response = self.client.get(reverse("project_detail_legacy", kwargs={"pk": self.project.pk}), follow=True)
+        self.assertEqual(response.redirect_chain[0][1], 301)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "MultiShop")
         self.assertContains(response, "Primary Stack")
 
     def test_unpublished_project_detail_404(self):
-        response = self.client.get(reverse("project_detail", kwargs={"pk": self.unpub_project.pk}))
+        response = self.client.get(reverse("project_detail_legacy", kwargs={"pk": self.unpub_project.pk}))
+        self.assertEqual(response.status_code, 404)
+        response = self.client.get(reverse("project_detail", kwargs={"slug": self.unpub_project.slug}))
         self.assertEqual(response.status_code, 404)
 
 

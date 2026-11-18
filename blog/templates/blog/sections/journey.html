@@ -1,0 +1,34 @@
+<section class="section journey" id="journey" aria-labelledby="journey-title">
+    <div class="container journey__grid">
+        <header class="section-head journey__head" data-reveal>
+            <p class="eyebrow"><span>05</span> Journey</p>
+            <h2 class="section-title" id="journey-title">Education, projects and <em>what I'm learning now.</em></h2>
+            <ul class="legend" aria-label="Legend">
+                <li class="legend--education">Education</li>
+                <li class="legend--projects">Independent projects</li>
+                <li class="legend--learning">Current learning</li>
+            </ul>
+        </header>
+
+        <ol class="timeline" data-timeline>
+            <span class="timeline__line" aria-hidden="true"><span data-timeline-progress></span></span>
+            {% for m in milestones %}
+            <li class="timeline__item timeline__item--{{ m.kind }}" data-reveal>
+                <span class="timeline__dot" aria-hidden="true"></span>
+                <div class="timeline__meta">
+                    <span class="timeline__period">{{ m.period }}</span>
+                    <span class="timeline__kind">{{ m.get_kind_display }}</span>
+                </div>
+                <h3 class="timeline__title">{{ m.title }}</h3>
+                {% if m.organization_or_tag %}<p class="timeline__org">{{ m.organization_or_tag }}</p>{% endif %}
+                <p class="timeline__desc">{{ m.description }}</p>
+                {% if m.kind == 'education' and profile.education_details %}
+                <p class="timeline__note">{{ profile.education_details }}</p>
+                {% endif %}
+            </li>
+            {% empty %}
+            <li class="empty">Milestones will appear here once added.</li>
+            {% endfor %}
+        </ol>
+    </div>
+</section>

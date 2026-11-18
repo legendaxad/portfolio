@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Engineering Notes | {{ profile.short_name }}{% endblock %}
+{% block meta_description %}Notes by {{ profile.short_name }} on Python, Django, backend architecture, REST APIs, deployment and security.{% endblock %}
+{% block body_class %}page-sub{% endblock %}
+
+{% block main %}
+<section class="section notes-page">
+    <div class="container">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="{% url 'home' %}" class="crumbs__back"><svg class="i flip"><use href="#i-arrow"/></svg> Home</a></nav>
+        <header class="section-head">
+            <p class="eyebrow">Engineering notes</p>
+            <h1 class="section-title section-title--xl">Things I've learned <em>building software.</em></h1>
+        </header>
+
+        {% if categories %}
+        <nav class="tabs tabs--sm" aria-label="Filter notes by category">
+            <a href="{% url 'post_list' %}" {% if not active_category %}aria-current="page"{% endif %}>All</a>
+            {% for c in categories %}<a href="?category={{ c.slug }}" {% if active_category == c.slug %}aria-current="page"{% endif %}>{{ c.name }}</a>{% endfor %}
+        </nav>
+        {% endif %}
+
+        {% if posts %}
+        <div class="post-grid">
+            {% for post in posts %}{% include 'blog/partials/post_card.html' %}{% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <svg class="i"><use href="#i-file"/></svg>
+            <div>
+                <h2>No articles published yet.</h2>
+                <p>Notes on Django, REST APIs, deployment, Linux and security are planned and will appear here once they're written. In the meantime, the <a class="link" href="{% url 'home' %}#work">project case studies</a> explain how I built things.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

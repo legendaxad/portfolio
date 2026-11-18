@@ -1,62 +1,66 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}<!DOCTYPE html>
+<html lang="en" class="no-js">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#090d16">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#07080b">
+    <meta name="color-scheme" content="dark">
+    <script>document.documentElement.classList.replace('no-js','js');</script>
 
-    <!-- SEO Meta Tags -->
-    <title>{% block title %}{{ profile.full_name }} — {{ profile.headline }}{% endblock %}</title>
-    <meta name="description" content="{{ profile.subheadline|default:'Portfolio of Ahadjon — Full-Stack Developer and Python Backend Engineer studying Information Security at Dongshin University.' }}">
-    <meta name="author" content="{{ profile.full_name|default:'Ahadjon' }}">
+    {% block seo %}
+    <title>{% block title %}{{ profile.short_name }} — Python Backend & Full-Stack Developer{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ profile.subheadline|striptags|truncatechars:160 }}{% endblock %}">
+    {% endblock %}
+    <meta name="author" content="{{ profile.full_name }}">
+    <link rel="canonical" href="{% block canonical %}{{ canonical_url }}{% endblock %}">
 
-    <!-- Open Graph / Social Meta -->
-    <meta property="og:site_name" content="Ahadjon Portfolio">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="{{ profile.full_name }} — {{ profile.headline }}">
-    <meta property="og:description" content="{{ profile.subheadline }}">
-    {% if profile.avatar %}
-    <meta property="og:image" content="{{ profile.avatar.url }}">
-    {% endif %}
+    <meta property="og:site_name" content="{{ profile.short_name }} — Portfolio">
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:title" content="{% block og_title %}{{ profile.short_name }} — Python Backend & Full-Stack Developer{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}{{ profile.subheadline|striptags|truncatechars:200 }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}{{ site_url }}{% static 'images/og-image.png' %}{% endblock %}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- Typography (Inter & JetBrains Mono) -->
+    <link rel="icon" href="{% static 'images/favicon.svg' %}" type="image/svg+xml">
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png" sizes="any">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Design System Stylesheet -->
-    <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/site.css' %}">
+    {% block extra_head %}{% endblock %}
 </head>
-<body>
-    <!-- Site Navigation -->
+<body class="{% block body_class %}{% endblock %}">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="scroll-progress" aria-hidden="true"><span></span></div>
+    <div class="cursor" aria-hidden="true"><span class="cursor__ring"></span><span class="cursor__dot"></span></div>
+    <div class="grain" aria-hidden="true"></div>
+
     {% include 'components/navbar.html' %}
 
-    <!-- Global Feedback Flash Messages -->
     {% if messages %}
-    <div class="container messages-container">
+    <div class="toasts" role="status" aria-live="polite">
         {% for message in messages %}
-        <div class="alert alert-{{ message.tags|default:'success' }}" role="alert">
+        <div class="toast toast--{{ message.tags|default:'success' }}">
             <span>{{ message }}</span>
-            <button type="button" class="alert-close" aria-label="Close message">&times;</button>
+            <button type="button" class="toast__close" aria-label="Dismiss message">&times;</button>
         </div>
         {% endfor %}
     </div>
     {% endif %}
 
-    <!-- Main Page Content Block -->
-    <main>
+    <main id="main" tabindex="-1">
         {% block main %}{% endblock %}
     </main>
 
-    <!-- Footer -->
     {% include 'components/footer.html' %}
 
-    <!-- Core Interaction Script -->
-    <script src="{% static 'js/portfolio.js' %}"></script>
+    <script src="{% static 'vendor/gsap.min.js' %}" defer></script>
+    <script src="{% static 'vendor/ScrollTrigger.min.js' %}" defer></script>
+    <script src="{% static 'js/site.js' %}" defer></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>

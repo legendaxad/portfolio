@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load portfolio %}
+{% block title %}{{ post.title }} | {{ profile.short_name }}{% endblock %}
+{% block meta_description %}{{ post.summary|truncatechars:160 }}{% endblock %}
+{% block og_title %}{{ post.title }}{% endblock %}
+{% block og_description %}{{ post.summary|truncatechars:200 }}{% endblock %}
+{% block og_type %}article{% endblock %}
+{% block body_class %}page-sub{% endblock %}
+{% block extra_head %}{% if post.cover %}<meta property="og:image" content="{{ site_url }}{{ post.cover.url }}">{% endif %}
+<script type="application/ld+json">{{ ld|safe }}</script>{% endblock %}
+
+{% block main %}
+<article class="article">
+    <div class="container container--narrow">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="{% url 'post_list' %}" class="crumbs__back"><svg class="i flip"><use href="#i-arrow"/></svg> All notes</a></nav>
+        {% if post.status != 'published' %}<p class="draft-banner">Draft preview — only visible to staff.</p>{% endif %}
+        <header class="article__head">
+            <p class="post-card__meta">
+                {% if post.category %}<a href="{% url 'post_list' %}?category={{ post.category.slug }}">{{ post.category.name }}</a>{% endif %}
+                {% if post.published_at %}<time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"F j, Y" }}</time>{% endif %}
+                <span>{{ post.reading_time }} min read</span>
+            </p>
+            <h1 class="article__title">{{ post.title }}</h1>
+            {% if post.excerpt %}<p class="article__lead">{{ post.excerpt }}</p>{% endif %}
+        </header>
+        {% if post.cover %}<img class="article__cover" src="{{ post.cover.url }}" alt="" decoding="async">{% endif %}
+        <div class="prose prose--article">{{ post.body|rich_text }}</div>
+    </div>
+
+    {% if related %}
+    <div class="container">
+        <h2 class="related__title">Related notes</h2>
+        <div class="post-grid">{% for post in related %}{% include 'blog/partials/post_card.html' %}{% endfor %}</div>
+    </div>
+    {% endif %}
+</article>
+{% endblock %}

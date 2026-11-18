@@ -1,0 +1,17 @@
+<article class="post-card" data-reveal data-spotlight>
+    <a href="{{ post.get_absolute_url }}" class="post-card__link">
+        <div class="post-card__media">
+            {% if post.cover %}<img src="{{ post.cover.url }}" alt="" loading="lazy" decoding="async">
+            {% else %}<span class="post-card__gen" aria-hidden="true">{{ post.category.name|default:"Note" }}</span>{% endif %}
+        </div>
+        <div class="post-card__body">
+            <p class="post-card__meta">
+                {% if post.category %}<span>{{ post.category.name }}</span>{% endif %}
+                <time datetime="{{ post.published_at|date:'c' }}">{{ post.published_at|date:"M j, Y" }}</time>
+                <span>{{ post.reading_time }} min read</span>
+            </p>
+            <h3 class="post-card__title">{{ post.title }}</h3>
+            <p class="post-card__excerpt">{{ post.summary }}</p>
+        </div>
+    </a>
+</article>

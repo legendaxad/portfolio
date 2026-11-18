@@ -1,0 +1,69 @@
+{% load portfolio %}
+<section class="section engineering" id="engineering" aria-labelledby="eng-title">
+    <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+            <div>
+                <p class="eyebrow"><span>04</span> Engineering</p>
+                <h2 class="section-title" id="eng-title">From the first request <em>to the running server.</em></h2>
+            </div>
+            <p class="section-lead">I care about the whole lifecycle of an application — not only the screen. Follow a request through the layers I build, and select any layer to see how I approach it.</p>
+        </header>
+
+        <div class="flow" data-flow>
+            <div class="flow__rail" aria-hidden="true"><span class="flow__wire"></span><span class="flow__packet"></span><span class="flow__packet"></span><span class="flow__packet"></span></div>
+            <div class="flow__nodes" role="tablist" aria-label="Application layers">
+                {% for node in "client api auth logic data deploy"|split_words %}
+                <button class="flow__node" role="tab" id="flow-tab-{{ node }}" aria-controls="flow-panel-{{ node }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}" data-node="{{ node }}">
+                    <span class="flow__num">{{ forloop.counter|stringformat:"02d" }}</span>
+                    <span class="flow__name">{% if node == 'client' %}Frontend{% elif node == 'api' %}API{% elif node == 'auth' %}Auth{% elif node == 'logic' %}Business logic{% elif node == 'data' %}Database{% else %}Deployment{% endif %}</span>
+                </button>
+                {% endfor %}
+            </div>
+
+            <div class="flow__panels">
+                <div class="flow__panel" role="tabpanel" id="flow-panel-client" aria-labelledby="flow-tab-client">
+                    <div><h3>Frontend that respects the API</h3>
+                    <p>Interfaces built with React and TypeScript — or server-rendered Django templates when that's simpler. Typed requests, client-side validation and clear loading and error states.</p></div>
+                    <ul class="flow__tech"><li>{% tech_icon "React" %}React</li><li>{% tech_icon "TypeScript" %}TypeScript</li><li>{% tech_icon "Django" %}Django templates</li></ul>
+                    <p class="flow__seen">Seen in: Camper Booking · Clicon · BURAK web client</p>
+                </div>
+                <div class="flow__panel" role="tabpanel" id="flow-panel-api" aria-labelledby="flow-tab-api" hidden>
+                    <div><h3>Predictable REST APIs</h3>
+                    <p>Resource-oriented endpoints, serializers that validate input at the boundary, consistent error responses and status codes, and pagination before it's needed.</p></div>
+                    <ul class="flow__tech"><li>{% tech_icon "Django REST Framework" %}Django REST Framework</li><li>{% tech_icon "FastAPI" %}FastAPI</li><li>{% tech_icon "Express" %}Express.js</li></ul>
+                    <p class="flow__seen">Seen in: BURAK · Camper Booking · city_api</p>
+                </div>
+                <div class="flow__panel" role="tabpanel" id="flow-panel-auth" aria-labelledby="flow-tab-auth" hidden>
+                    <div><h3>Authentication & permissions</h3>
+                    <p>Hashed passwords, custom user models, sessions or JWTs depending on the client, and explicit permission checks. My information-security studies show up most here.</p></div>
+                    <ul class="flow__tech"><li>{% tech_icon "JWT" %}JWT</li><li>{% tech_icon "Django" %}Custom user model</li><li>{% tech_icon "Node.js" %}bcrypt</li></ul>
+                    <p class="flow__seen">Seen in: MultiShop · Camper Booking · BURAK</p>
+                </div>
+                <div class="flow__panel" role="tabpanel" id="flow-panel-logic" aria-labelledby="flow-tab-logic" hidden>
+                    <div><h3>Business logic in services</h3>
+                    <p>Rules live in services rather than views, so they're testable. Slow or unreliable work — AI scoring, media downloads, payments — is isolated and its failures handled.</p></div>
+                    <ul class="flow__tech"><li>{% tech_icon "Python" %}Python services</li><li>{% tech_icon "Redis" %}Redis workers</li><li>{% tech_icon "Stripe" %}Stripe</li></ul>
+                    <p class="flow__seen">Seen in: TestBridge · Downloader bot · MultiShop</p>
+                </div>
+                <div class="flow__panel" role="tabpanel" id="flow-panel-data" aria-labelledby="flow-tab-data" hidden>
+                    <div><h3>Data modelled deliberately</h3>
+                    <p>Relational schemas with clear constraints and migrations, document models where the shape is flexible, and caching where reads repeat.</p></div>
+                    <ul class="flow__tech"><li>{% tech_icon "PostgreSQL" %}PostgreSQL</li><li>{% tech_icon "SQLite" %}SQLite</li><li>{% tech_icon "MongoDB" %}MongoDB</li><li>{% tech_icon "Redis" %}Redis</li></ul>
+                    <p class="flow__seen">Seen in: TestBridge · MultiShop · BURAK</p>
+                </div>
+                <div class="flow__panel" role="tabpanel" id="flow-panel-deploy" aria-labelledby="flow-tab-deploy" hidden>
+                    <div><h3>Deployment I can explain</h3>
+                    <p>Gunicorn behind an Nginx reverse proxy on a Linux server, HTTPS, environment-based settings and static files served properly. Learning Docker and server hardening next.</p></div>
+                    <ul class="flow__tech"><li>{% tech_icon "Linux" %}Linux</li><li>{% tech_icon "Nginx" %}Nginx</li><li>{% tech_icon "Gunicorn" %}Gunicorn</li><li>{% tech_icon "Docker" %}Docker</li></ul>
+                    <p class="flow__seen">Seen in: MultiShop (live at legendaxad.org)</p>
+                </div>
+            </div>
+        </div>
+
+        <ul class="principles" data-reveal>
+            <li><strong>Secure by default</strong><span>Validate at the boundary, least privilege, no secrets in code.</span></li>
+            <li><strong>Maintainable</strong><span>Small modules, clear names, tests where it counts.</span></li>
+            <li><strong>Measured performance</strong><span>Fix the query or cache the read — after measuring.</span></li>
+        </ul>
+    </div>
+</section>

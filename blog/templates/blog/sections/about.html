@@ -1,0 +1,69 @@
+{% load static %}
+<section class="section about" id="about" aria-labelledby="about-title">
+    <div class="container">
+        <header class="section-head" data-reveal>
+            <p class="eyebrow"><span>01</span> About</p>
+            <h2 class="section-title" id="about-title">I like knowing <em>how things work</em> — all the way down to the server.</h2>
+        </header>
+
+        <div class="about__grid">
+            <div class="about__portrait" data-reveal>
+                <div class="portrait" data-spotlight>
+                    {% if profile.avatar %}
+                    <img src="{{ profile.avatar.url }}" alt="Portrait of {{ profile.full_name }}" width="480" height="600" loading="lazy" decoding="async">
+                    {% else %}
+                    <div class="portrait__placeholder" aria-hidden="true">{{ profile.short_name|first }}</div>
+                    {% endif %}
+                    <span class="portrait__tag">{{ profile.location }}</span>
+                </div>
+            </div>
+
+            <div class="about__copy">
+                <p class="about__lead" data-reveal>{{ profile.bio_intro }}</p>
+                {% if profile.bio_journey %}<p data-reveal>{{ profile.bio_journey }}</p>{% endif %}
+                <p data-reveal>{{ profile.bio_philosophy }}</p>
+
+                <dl class="facts" data-reveal>
+                    <div><dt>Studying</dt><dd>{{ profile.education_degree }}<br><span>{{ profile.education_institution }}</span></dd></div>
+                    <div><dt>Focus</dt><dd>Backend engineering<br><span>APIs · architecture · deployment</span></dd></div>
+                    <div><dt>Based in</dt><dd>{{ profile.location }}</dd></div>
+                    {% if profile.resume_file %}
+                    <div><dt>Résumé</dt><dd><a href="{{ profile.resume_file.url }}" class="link" target="_blank" rel="noopener">Download CV ↗</a></dd></div>
+                    {% endif %}
+                </dl>
+            </div>
+        </div>
+
+        <div class="path" data-path>
+            <p class="path__label" data-reveal>How my stack grew</p>
+            <ol class="path__list">
+                <li class="path__step" data-reveal>
+                    <span class="path__n">01</span>
+                    <h3>Frontend foundations</h3>
+                    <p>React, TypeScript and JavaScript — building interfaces and learning how they talk to APIs.</p>
+                </li>
+                <li class="path__step" data-reveal>
+                    <span class="path__n">02</span>
+                    <h3>Full-stack JavaScript</h3>
+                    <p>Node.js, Express and MongoDB — my first REST APIs, authentication and data models.</p>
+                </li>
+                <li class="path__step path__step--key" data-reveal>
+                    <span class="path__n">03</span>
+                    <h3>Python backend</h3>
+                    <p>Django, Django REST Framework and FastAPI — where most of my work now happens.</p>
+                </li>
+                <li class="path__step" data-reveal>
+                    <span class="path__n">04</span>
+                    <h3>Deployment & infrastructure</h3>
+                    <p>Linux, Gunicorn and Nginx — taking my own projects from localhost to a real domain.</p>
+                </li>
+                <li class="path__step path__step--now" data-reveal>
+                    <span class="path__n">05</span>
+                    <h3>Where I'm heading</h3>
+                    <p>Advanced backend engineering, security and DevOps.</p>
+                </li>
+            </ol>
+            <div class="path__line" aria-hidden="true"><span></span></div>
+        </div>
+    </div>
+</section>

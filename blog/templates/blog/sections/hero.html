@@ -1,0 +1,66 @@
+{% load portfolio %}
+<section class="hero" id="top" aria-labelledby="hero-title" data-hero>
+    <div class="hero__bg" aria-hidden="true">
+        <canvas class="hero__canvas" data-shader></canvas>
+        <div class="hero__fallback"></div>
+        <div class="hero__vignette"></div>
+        <div class="hero__grid"></div>
+    </div>
+
+    <div class="container hero__inner">
+        <p class="hero__eyebrow" data-hero-in>
+            <span class="hero__eyebrow-line"></span>
+            Hello, I'm {{ profile.short_name }}
+        </p>
+
+        {% with parts=profile.hero_title_parts %}
+        <h1 class="hero__title" id="hero-title" aria-label="{{ parts.0 }}{{ parts.1 }}{{ parts.2 }}">
+            <span aria-hidden="true">
+            {% for w in parts.0|split_words %}<span class="w"><span>{{ w }}</span></span> {% endfor %}
+            {% for w in parts.1|split_words %}<span class="w w--accent"><span>{{ w }}</span></span> {% endfor %}
+            {% for w in parts.2|split_words %}<span class="w"><span>{{ w }}</span></span> {% endfor %}
+            </span>
+        </h1>
+        {% endwith %}
+
+        <div class="hero__row">
+            <p class="hero__lead" data-hero-in>{{ profile.hero_subtitle }}</p>
+
+            <div class="hero__ctas" data-hero-in>
+                <a href="#contact" class="btn btn--primary" data-magnetic>
+                    <span>Get in touch</span>
+                    <svg class="i"><use href="#i-arrow"/></svg>
+                </a>
+                {% if profile.github_url %}
+                <a href="{{ profile.github_url }}" class="btn btn--ghost" target="_blank" rel="noopener noreferrer" data-magnetic>
+                    <svg class="i"><use href="#i-github"/></svg>
+                    <span>GitHub</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <ul class="hero__meta" data-hero-in>
+            {% if profile.available_for_hire and profile.availability_text %}
+            <li class="hero__status"><span class="pulse" aria-hidden="true"></span>{{ profile.availability_text }}</li>
+            {% endif %}
+            <li><svg class="i"><use href="#i-pin"/></svg>{{ profile.location }}</li>
+            <li>{{ profile.education_degree }}</li>
+        </ul>
+    </div>
+
+    <figure class="hero__card" data-tilt aria-label="A Django model describing my engineering focus" data-hero-in>
+        <div class="hero__card-bar"><i></i><i></i><i></i><span>engineer.py</span></div>
+<pre class="hero__code"><code><span class="k">class</span> <span class="c">Engineer</span>(models.Model):
+    focus    = <span class="s">"backend"</span>
+    builds   = [<span class="s">"APIs"</span>, <span class="s">"web apps"</span>, <span class="s">"bots"</span>]
+    stack    = [<span class="s">"Django"</span>, <span class="s">"DRF"</span>, <span class="s">"PostgreSQL"</span>]
+    ships_to = <span class="s">"Linux · Gunicorn · Nginx"</span>
+    studying = <span class="s">"Information Security"</span><span class="caret" aria-hidden="true"></span></code></pre>
+    </figure>
+
+    <a href="#about" class="hero__scroll" aria-label="Scroll to About section">
+        <span class="hero__scroll-track"><span></span></span>
+        <span>Scroll</span>
+    </a>
+</section>

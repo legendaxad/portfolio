@@ -1,0 +1,25 @@
+<section class="section notes" id="notes" aria-labelledby="notes-title">
+    <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+            <div>
+                <p class="eyebrow"><span>08</span> Engineering notes</p>
+                <h2 class="section-title" id="notes-title">Writing about what I <em>build and break.</em></h2>
+            </div>
+            <a href="{% url 'post_list' %}" class="btn btn--ghost btn--sm"><span>All notes</span><svg class="i"><use href="#i-arrow"/></svg></a>
+        </header>
+
+        {% if posts %}
+        <div class="post-grid">
+            {% for post in posts %}{% include 'blog/partials/post_card.html' %}{% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state" data-reveal>
+            <svg class="i"><use href="#i-file"/></svg>
+            <div>
+                <h3>No articles published yet.</h3>
+                <p>Notes on Django, REST APIs, deployment, Linux and security are planned. They'll appear here as soon as they're written.</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>

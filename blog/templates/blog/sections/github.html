@@ -1,0 +1,39 @@
+{% if profile.github_username %}
+<section class="section github" id="github" aria-labelledby="gh-title" data-github data-endpoint="{% url 'github_api' %}">
+    <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+            <div>
+                <p class="eyebrow"><span>06</span> Open source</p>
+                <h2 class="section-title" id="gh-title">Live from <em>GitHub.</em></h2>
+            </div>
+            <p class="section-lead">Pulled from GitHub's public API through a cached server-side endpoint — real numbers, refreshed hourly.</p>
+        </header>
+
+        <div class="gh" aria-live="polite" aria-busy="true">
+            <div class="gh__profile gh-card" data-gh-profile>
+                <div class="skeleton skeleton--avatar"></div>
+                <div class="skeleton skeleton--line"></div>
+                <div class="skeleton skeleton--line short"></div>
+            </div>
+            <div class="gh__langs gh-card" data-gh-langs>
+                <h3 class="gh-card__title">Languages <small>by primary language of public repositories</small></h3>
+                <div class="skeleton skeleton--bar"></div>
+                <div class="skeleton skeleton--line"></div>
+            </div>
+            <div class="gh__repos gh-card" data-gh-repos>
+                <h3 class="gh-card__title">Recently updated</h3>
+                <div class="skeleton skeleton--line"></div>
+                <div class="skeleton skeleton--line"></div>
+                <div class="skeleton skeleton--line short"></div>
+            </div>
+        </div>
+        <noscript><p class="empty">See my repositories on <a class="link" href="{{ profile.github_url }}">GitHub</a>.</p></noscript>
+        <template data-gh-fallback>
+            <div class="gh-fallback">
+                <p>GitHub's API isn't responding right now.</p>
+                <a class="btn btn--ghost btn--sm" href="{{ profile.github_url }}" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-github"/></svg><span>Open my GitHub profile</span></a>
+            </div>
+        </template>
+    </div>
+</section>
+{% endif %}

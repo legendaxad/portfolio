@@ -1,28 +1,27 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block body_class %}page-home{% endblock %}
+
+{% block extra_head %}
+<link rel="preload" href="{% static 'js/hero-shader.js' %}" as="script">
+<script type="application/ld+json">{{ ld|safe }}</script>
+{% endblock %}
+
 {% block main %}
-    <!-- Hero / Terminal Introduction -->
-    {% include 'blog/components/header.html' %}
+    {% include 'blog/sections/hero.html' %}
+    {% include 'blog/sections/about.html' %}
+    {% include 'blog/sections/stack.html' %}
+    {% include 'blog/sections/work.html' %}
+    {% include 'blog/sections/engineering.html' %}
+    {% include 'blog/sections/journey.html' %}
+    {% include 'blog/sections/github.html' %}
+    {% include 'blog/sections/certificates.html' %}
+    {% include 'blog/sections/notes.html' %}
+    {% include 'blog/sections/faq.html' %}
+    {% include 'blog/sections/contact.html' %}
+{% endblock %}
 
-    <!-- About / Background & Philosophy -->
-    {% include 'blog/components/about.html' %}
-
-    <!-- Technical Skills Matrix -->
-    {% include 'blog/components/skills.html' %}
-
-    <!-- Featured Projects & Case Studies -->
-    {% include 'blog/components/projects.html' %}
-
-    <!-- Development Journey & Academic Milestones -->
-    {% include 'blog/components/journey.html' %}
-
-    <!-- Verified Certifications -->
-    {% include 'blog/components/certificates.html' %}
-
-    <!-- Frequently Asked Questions -->
-    {% include 'blog/components/questions.html' %}
-
-    <!-- Direct Contact & Validated Inquiry Form -->
-    {% include 'blog/components/contact.html' %}
+{% block scripts %}
+<script src="{% static 'js/hero-shader.js' %}" defer></script>
 {% endblock %}

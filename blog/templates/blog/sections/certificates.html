@@ -1,0 +1,49 @@
+{% if certificates %}
+<section class="section certs" id="certificates" aria-labelledby="certs-title">
+    <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+            <div>
+                <p class="eyebrow"><span>07</span> Certificates</p>
+                <h2 class="section-title" id="certs-title">Courses I've <em>completed.</em></h2>
+            </div>
+            <div class="carousel-ctrl" data-carousel-ctrl>
+                <button type="button" class="icon-btn" data-prev aria-label="Previous certificate"><svg class="i flip"><use href="#i-chevron"/></svg></button>
+                <button type="button" class="icon-btn" data-next aria-label="Next certificate"><svg class="i"><use href="#i-chevron"/></svg></button>
+            </div>
+        </header>
+    </div>
+
+    <div class="carousel" data-carousel>
+        <ul class="carousel__track" data-carousel-track>
+            {% for cert in certificates %}
+            <li class="cert" data-reveal>
+                <button type="button" class="cert__open" data-cert-open
+                        data-title="{{ cert.title }}" data-issuer="{{ cert.given_by }}" data-year="{{ cert.year }}"
+                        data-desc="{{ cert.description }}" data-img="{{ cert.image.url }}" data-url="{{ cert.credential_url|default:'' }}"
+                        aria-label="View certificate: {{ cert.title }}" data-cursor="Zoom">
+                    <span class="cert__media"><img src="{{ cert.image.url }}" alt="" loading="lazy" decoding="async"></span>
+                </button>
+                <div class="cert__body">
+                    <p class="cert__meta"><span>{{ cert.given_by }}</span>{% if cert.year %}<span>{{ cert.year }}</span>{% endif %}</p>
+                    <h3 class="cert__title">{{ cert.title }}</h3>
+                    {% if cert.credential_url %}<a class="link" href="{{ cert.credential_url }}" target="_blank" rel="noopener noreferrer">Verify credential ↗</a>{% endif %}
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <dialog class="lightbox" data-lightbox aria-labelledby="lightbox-title">
+        <div class="lightbox__inner">
+            <button type="button" class="icon-btn lightbox__close" data-lightbox-close aria-label="Close"><svg class="i"><use href="#i-close"/></svg></button>
+            <img class="lightbox__img" alt="" data-lb-img>
+            <div class="lightbox__info">
+                <p class="cert__meta" data-lb-meta></p>
+                <h3 id="lightbox-title" data-lb-title></h3>
+                <p data-lb-desc></p>
+                <a class="btn btn--ghost btn--sm" data-lb-url target="_blank" rel="noopener noreferrer" hidden><span>Verify credential</span><svg class="i"><use href="#i-arrow-up-right"/></svg></a>
+            </div>
+        </div>
+    </dialog>
+</section>
+{% endif %}

@@ -1,0 +1,89 @@
+{% load portfolio %}
+<section class="section work" id="work" aria-labelledby="work-title">
+    <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+            <div>
+                <p class="eyebrow"><span>03</span> Selected work</p>
+                <h2 class="section-title" id="work-title">Projects I've <em>designed, built</em> and shipped.</h2>
+            </div>
+            <p class="section-lead">Each project shows its real status. Open a case study for the architecture and decisions behind it.</p>
+        </header>
+    </div>
+
+    {% if featured_projects %}
+    <div class="reel" data-reel>
+        <div class="reel__track" data-reel-track>
+            {% for project in featured_projects %}
+            <article class="reel__panel" style="--a:{{ project.accent }}">
+                <a href="{{ project.get_absolute_url }}" class="reel__visual" tabindex="-1" aria-hidden="true" data-cursor="View">
+                    {% include 'blog/partials/project_visual.html' %}
+                </a>
+                <div class="reel__body">
+                    <div class="reel__meta">
+                        <span class="reel__index">{{ forloop.counter|stringformat:"02d" }} / {{ featured_projects|length|stringformat:"02d" }}</span>
+                        <span class="status status--{{ project.status }}">{% if project.status == 'completed' %}Completed{% else %}In development{% endif %}</span>
+                    </div>
+                    <h3 class="reel__title"><a href="{{ project.get_absolute_url }}">{{ project.title }}</a></h3>
+                    <p class="reel__desc">{{ project.description }}</p>
+                    {% with h=project.get_highlights_list %}{% if h %}
+                    <ul class="reel__highlights">
+                        {% for item in h|slice:":3" %}<li>{{ item }}</li>{% endfor %}
+                    </ul>
+                    {% endif %}{% endwith %}
+                    <ul class="badges" aria-label="Technologies">
+                        {% for t in project.get_tech_list|slice:":6" %}<li>{{ t }}</li>{% endfor %}
+                    </ul>
+                    <div class="reel__links">
+                        <a href="{{ project.get_absolute_url }}" class="btn btn--primary btn--sm" data-magnetic><span>Case study</span><svg class="i"><use href="#i-arrow"/></svg></a>
+                        {% if project.project_link %}<a href="{{ project.project_link }}" class="btn btn--ghost btn--sm" target="_blank" rel="noopener noreferrer"><span>Live site</span><svg class="i"><use href="#i-arrow-up-right"/></svg></a>{% endif %}
+                        {% if project.github_link %}<a href="{{ project.github_link }}" class="icon-btn" target="_blank" rel="noopener noreferrer" aria-label="{{ project.title }} on GitHub"><svg class="i"><use href="#i-github"/></svg></a>{% endif %}
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        <div class="reel__progress" aria-hidden="true"><span data-reel-progress></span></div>
+    </div>
+    {% endif %}
+
+    <div class="container">
+        <div class="work__index-head" data-reveal>
+            <h3 class="work__index-title">All projects <sup>{{ projects|length }}</sup></h3>
+            <div class="tabs tabs--sm" role="group" aria-label="Filter projects by category" data-project-filters>
+                <button type="button" aria-pressed="true" data-filter="all">All</button>
+                {% for key, label in project_categories %}
+                <button type="button" aria-pressed="false" data-filter="{{ key }}">{{ label }}</button>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="work-grid" data-project-grid>
+            {% for project in projects %}
+            <article class="pcard{% if forloop.counter0 < 2 %} pcard--wide{% endif %}" data-category="{{ project.category }}" style="--a:{{ project.accent }}" data-spotlight data-tilt-soft>
+                <a href="{{ project.get_absolute_url }}" class="pcard__link" data-cursor="Open">
+                    <span class="sr-only">Open case study: {{ project.title }}</span>
+                </a>
+                {% include 'blog/partials/project_visual.html' with vt=1 %}
+                <div class="pcard__body">
+                    <div class="pcard__top">
+                        <span class="pcard__cat">{{ project.get_category_display }}</span>
+                        <span class="status status--{{ project.status }}">{% if project.status == 'completed' %}Completed{% else %}In development{% endif %}</span>
+                    </div>
+                    <h4 class="pcard__title">{{ project.title }}</h4>
+                    <p class="pcard__desc">{{ project.description }}</p>
+                    <ul class="badges badges--sm" aria-label="Technologies">
+                        {% for t in project.get_tech_list|slice:":5" %}<li>{{ t }}</li>{% endfor %}
+                    </ul>
+                    <div class="pcard__links">
+                        {% if project.project_link %}<a href="{{ project.project_link }}" target="_blank" rel="noopener noreferrer">Live ↗</a>{% endif %}
+                        {% if project.github_link %}<a href="{{ project.github_link }}" target="_blank" rel="noopener noreferrer">GitHub ↗</a>{% endif %}
+                        <span class="pcard__more" aria-hidden="true">Case study <svg class="i"><use href="#i-arrow"/></svg></span>
+                    </div>
+                </div>
+            </article>
+            {% empty %}
+            <p class="empty">No projects are published yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>

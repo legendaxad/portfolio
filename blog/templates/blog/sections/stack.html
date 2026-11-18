@@ -1,0 +1,39 @@
+{% load portfolio %}
+<section class="section stack" id="stack" aria-labelledby="stack-title">
+    <div class="container">
+        <header class="section-head section-head--split" data-reveal>
+            <div>
+                <p class="eyebrow"><span>02</span> Stack</p>
+                <h2 class="section-title" id="stack-title">Backend first, <em>full-stack</em> when it matters.</h2>
+            </div>
+            <p class="section-lead">The tools I've used to build and ship real projects. No made-up percentages — highlighted items are the ones I reach for first.</p>
+        </header>
+
+        <div class="tabs" role="tablist" aria-label="Filter technologies by category" data-stack-tabs>
+            <button role="tab" aria-selected="true" data-filter="all">All</button>
+            {% for cat in skill_categories %}
+            <button role="tab" aria-selected="false" data-filter="{{ cat.key }}">{{ cat.name }}</button>
+            {% endfor %}
+        </div>
+
+        <div class="bento-stack" data-stack>
+            {% for cat in skill_categories %}
+            <article class="stack-tile{% if cat.is_primary %} stack-tile--primary{% endif %}" data-cat="{{ cat.key }}" data-spotlight data-reveal>
+                <header class="stack-tile__head">
+                    <h3>{{ cat.name }}</h3>
+                    {% if cat.description %}<p>{{ cat.description }}</p>{% endif %}
+                    {% if cat.is_primary %}<span class="chip chip--accent">Primary focus</span>{% endif %}
+                </header>
+                <ul class="tech-list">
+                    {% for skill in cat.skills.all %}
+                    <li class="tech{% if skill.is_core %} tech--core{% endif %}">
+                        {% tech_icon skill.name skill.icon %}
+                        <span>{{ skill.name }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>

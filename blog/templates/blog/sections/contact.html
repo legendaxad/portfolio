@@ -1,0 +1,75 @@
+<section class="section contact" id="contact" aria-labelledby="contact-title" data-spotlight-section>
+    <div class="container">
+        <header class="contact__head" data-reveal>
+            <p class="eyebrow"><span>10</span> Contact</p>
+            <h2 class="contact__title" id="contact-title">
+                Have an interesting problem to solve?
+                <em>Let's build something meaningful.</em>
+            </h2>
+        </header>
+
+        <div class="contact__grid">
+            <div class="contact__channels" data-reveal>
+                <p class="contact__intro">I'm open to backend and full-stack roles, internships and collaborations. The form goes straight to my inbox — or reach me directly:</p>
+                <ul class="channels">
+                    {% if profile.email %}
+                    <li class="channel">
+                        <a href="mailto:{{ profile.email }}" class="channel__main"><svg class="i"><use href="#i-mail"/></svg><span><small>Email</small>{{ profile.email }}</span></a>
+                        <button type="button" class="icon-btn icon-btn--sm" data-copy="{{ profile.email }}" aria-label="Copy email address"><svg class="i"><use href="#i-copy"/></svg></button>
+                    </li>
+                    {% endif %}
+                    {% if profile.github_url %}
+                    <li class="channel"><a href="{{ profile.github_url }}" class="channel__main" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-github"/></svg><span><small>GitHub</small>{{ profile.github_url|cut:"https://"|cut:"http://" }}</span></a></li>
+                    {% endif %}
+                    {% if profile.linkedin_url %}
+                    <li class="channel"><a href="{{ profile.linkedin_url }}" class="channel__main" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-linkedin"/></svg><span><small>LinkedIn</small>Profile</span></a></li>
+                    {% endif %}
+                    {% if profile.telegram_url %}
+                    <li class="channel"><a href="{{ profile.telegram_url }}" class="channel__main" target="_blank" rel="noopener noreferrer"><svg class="i"><use href="#i-telegram"/></svg><span><small>Telegram</small>{{ profile.telegram_url|cut:"https://"|cut:"http://" }}</span></a></li>
+                    {% endif %}
+                    <li class="channel"><span class="channel__main"><svg class="i"><use href="#i-pin"/></svg><span><small>Location</small>{{ profile.location }}</span></span></li>
+                </ul>
+            </div>
+
+            <form class="cform" method="post" action="{% url 'home' %}#contact" novalidate data-contact-form data-reveal>
+                {% csrf_token %}
+                <div class="hp-wrap" aria-hidden="true">{{ form.honeypot }}</div>
+                {{ form.ts }}
+                {% if form.non_field_errors %}<p class="cform__alert" role="alert">{{ form.non_field_errors.0 }}</p>{% endif %}
+
+                <div class="cform__row">
+                    <div class="field{% if form.name.errors %} is-invalid{% endif %}">
+                        {{ form.name }}
+                        <label for="{{ form.name.id_for_label }}">Your name</label>
+                        <p class="field__error" id="err-name" aria-live="polite">{{ form.name.errors.0 }}</p>
+                    </div>
+                    <div class="field{% if form.email.errors %} is-invalid{% endif %}">
+                        {{ form.email }}
+                        <label for="{{ form.email.id_for_label }}">Email address</label>
+                        <p class="field__error" id="err-email" aria-live="polite">{{ form.email.errors.0 }}</p>
+                    </div>
+                </div>
+                <div class="field{% if form.subject.errors %} is-invalid{% endif %}">
+                    {{ form.subject }}
+                    <label for="{{ form.subject.id_for_label }}">Subject <span>(optional)</span></label>
+                    <p class="field__error" id="err-subject" aria-live="polite">{{ form.subject.errors.0 }}</p>
+                </div>
+                <div class="field{% if form.message.errors %} is-invalid{% endif %}">
+                    {{ form.message }}
+                    <label for="{{ form.message.id_for_label }}">Tell me about the problem, role or idea</label>
+                    <p class="field__error" id="err-message" aria-live="polite">{{ form.message.errors.0 }}</p>
+                </div>
+
+                <div class="cform__foot">
+                    <p class="cform__status" role="status" aria-live="polite" data-form-status></p>
+                    <button type="submit" class="send" data-magnetic data-send>
+                        <span class="send__label send__label--idle">Send message</span>
+                        <span class="send__label send__label--busy" aria-hidden="true">Sending…</span>
+                        <span class="send__label send__label--done" aria-hidden="true">Sent</span>
+                        <span class="send__icon" aria-hidden="true"><svg class="i send__plane"><use href="#i-send"/></svg><svg class="i send__check"><use href="#i-check"/></svg></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

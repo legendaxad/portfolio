@@ -1,0 +1,18 @@
+{% if questions %}
+<section class="section faq" id="faq" aria-labelledby="faq-title">
+    <div class="container faq__grid">
+        <header class="section-head" data-reveal>
+            <p class="eyebrow"><span>09</span> FAQ</p>
+            <h2 class="section-title" id="faq-title">Questions people <em>usually ask.</em></h2>
+        </header>
+        <div class="faq__list">
+            {% for q in questions %}
+            <details class="faq__item" data-reveal{% if forloop.first %} open{% endif %}>
+                <summary><span>{{ q.quest }}</span><i aria-hidden="true"></i></summary>
+                <div class="faq__answer"><p>{{ q.answer|linebreaksbr }}</p></div>
+            </details>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}

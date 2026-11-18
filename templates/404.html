@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Page not found | {{ profile.short_name }}{% endblock %}
+{% block body_class %}page-sub page-404{% endblock %}
+{% block main %}
+<section class="notfound">
+    <div class="container">
+        <p class="eyebrow">Error 404</p>
+        <h1 class="notfound__code" aria-hidden="true">4<span>0</span>4</h1>
+        <h2 class="notfound__title">This route doesn't resolve.</h2>
+        <p class="notfound__text">The page may have moved, or the URL has a typo. No stack trace — just a way back.</p>
+        <pre class="notfound__log"><code>GET {{ request.path }} → <b>404 Not Found</b></code></pre>
+        <div class="case__actions">
+            <a href="{% url 'home' %}" class="btn btn--primary" data-magnetic><span>Back home</span><svg class="i"><use href="#i-arrow"/></svg></a>
+            <a href="{% url 'home' %}#work" class="btn btn--ghost"><span>See projects</span></a>
+        </div>
+    </div>
+</section>
+{% endblock %}

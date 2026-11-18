@@ -1,0 +1,15 @@
+{% load portfolio %}
+{# Cover image, or a tasteful generated placeholder (never a broken image). #}
+<div class="pvis{% if not project.image %} pvis--gen{% endif %}" style="--a:{{ project.accent }};{% if vt %} view-transition-name: pv-{{ project.slug }};{% endif %}">
+    {% if project.image %}
+    <img src="{{ project.image.url }}" alt="Screenshot of {{ project.title }}" loading="{{ loading|default:'lazy' }}" decoding="async">
+    {% else %}
+    <div class="pvis__gen" aria-hidden="true">
+        <span class="pvis__orb"></span>
+        <span class="pvis__mono">{{ project.initials }}</span>
+        <ul class="pvis__icons">
+            {% for t in project.get_tech_list|slice:":4" %}<li>{% tech_icon t %}</li>{% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
